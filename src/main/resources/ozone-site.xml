@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration>
+    <property>
+        <name>ozone.enabled</name>
+        <value>true</value>
+        <tag>OZONE, REQUIRED</tag>
+        <description>
+      Status of the Ozone Object Storage service is enabled.
+      Set to true to enable Ozone.
+      Set to false to disable Ozone.
+      Unless this value is set to true, Ozone services will not be started in
+      the cluster.
+
+      Please note: By default ozone is disabled on a hadoop cluster.
+    </description>
+    </property>
+    <property>
+       <name>ozone.acl.enabled</name>
+       <value>false</value>
+    </property>
+    <property>
+       <name>ozone.acl.authorizer.class</name>
+       <value>org.apache.hadoop.ozone.security.acl.OzoneNativeAuthorizer</value>
+    </property>
+    <property>
+       <name>ozone.administrators</name>
+       <value>root,tdwadmin</value>
+       <tag>OZONE, SECURITY</tag>
+       <description>Ozone administrator users delimited by the comma.
+         If not set, only the user who launches an ozone service will be the admin
+         user. This property must be set if ozone services are started by different
+         users. Otherwise, the RPC layer will reject calls from other servers which
+         are started by users not in the list.
+       </description>
+  </property>
+    <property>
+        <name>ozone.om.address</name>
+        <value>9.29.167.116</value>
+        <tag>OM, REQUIRED</tag>
+        <description>
+      The address of the Ozone OM service. This allows clients to discover
+      the address of the OM.
+    </description>
+    </property>
+    <property>
+        <name>ozone.metadata.dirs</name>
+        <value>/data/zmc/ozone</value>
+        <tag>OZONE, OM, SCM, CONTAINER, STORAGE, REQUIRED</tag>
+        <description>
+      This setting is the fallback location for SCM, OM, Recon and DataNodes
+      to store their metadata. This setting may be used only in test/PoC
+      clusters to simplify configuration.
+
+      For production clusters or any time you care about performance, it is
+      recommended that ozone.om.db.dirs, ozone.scm.db.dirs and
+      dfs.container.ratis.datanode.storage.dir be configured separately.
+    </description>
+    </property>
+    <property>
+    <name>ozone.om.db.dirs</name>
+    <value>/data/zmc/ozone/om/db</value>
+    <tag>OZONE, OM, STORAGE, PERFORMANCE</tag>
+    <description>
+      Directory where the OzoneManager stores its metadata. This should
+      be specified as a single directory. If the directory does not
+      exist then the OM will attempt to create it.
+
+      If undefined, then the OM will log a warning and fallback to
+      ozone.metadata.dirs. This fallback approach is not recommended for
+      production environments.
+    </description>
+    </property>
+    <property>
+        <name>ozone.scm.db.dirs</name>
+        <value>/data/zmc/ozone/scm/db</value>
+        <tag>OZONE, SCM, STORAGE, PERFORMANCE</tag>
+        <description>
+      Directory where the StorageContainerManager stores its metadata.
+      This should be specified as a single directory. If the directory
+      does not exist then the SCM will attempt to create it.
+
+      If undefined, then the SCM will log a warning and fallback to
+      ozone.metadata.dirs. This fallback approach is not recommended for
+      production environments.
+    </description>
+    </property>
+    <property>
+        <name>hdds.datanode.dir</name>
+        <value>/data1/ozonedata,/data2/ozonedata,/data3/ozonedata,/data4/ozonedata,/data5/ozonedata</value>
+        <tag>OZONE, CONTAINER, STORAGE, MANAGEMENT</tag>
+        <description>
+      Determines where on the local filesystem HDDS data will be
+      stored. Defaults to dfs.datanode.data.dir if not specified.
+      The directories should be tagged with corresponding storage types
+      ([SSD]/[DISK]/[ARCHIVE]/[RAM_DISK]) for storage policies. The default
+      storage type will be DISK if the directory does not have a storage type
+      tagged explicitly.
+    </description>
+    </property>
+<!--
+    <property>
+        <name>ozone.scm.client.address</name>
+        <value>9.29.167.18:9860</value>
+        <tag>OZONE, SCM, REQUIRED</tag>
+        <description>
+      The address of the Ozone SCM client service. This is a required setting.
+      It is a string in the host:port format. The port number is optional
+      and defaults to 9860.
+    </description>
+    </property>-->
+    <property>
+        <name>ozone.scm.names</name>
+        <value>9.29.167.116</value>
+        <tag>OZONE, REQUIRED</tag>
+        <description>
+      The value of this property is a set of DNS | DNS:PORT | IP
+      Address | IP:PORT. Written as a comma separated string. e.g. scm1,
+      scm2:8020, 7.7.7.7:7777.
+      This property allows datanodes to discover where SCM is, so that
+      datanodes can send heartbeat to SCM.
+    </description>
+    </property>
+    <property>
+    <name>ozone.scm.handler.count.key</name>
+    <value>128</value>
+    <tag>OZONE, MANAGEMENT, PERFORMANCE</tag>
+    <description>
+      The number of RPC handler threads for each SCM service
+      endpoint.
+
+      The default is appropriate for small clusters (tens of nodes).
+
+      Set a value that is appropriate for the cluster size. Generally, HDFS
+      recommends RPC handler count is set to 20 * log2(Cluster Size) with an
+      upper limit of 200. However, SCM will not have the same amount of
+      traffic as Namenode, so a value much smaller than that will work well too.
+    </description>
+  </property>
+  <property>
+    <name>ozone.om.handler.count.key</name>
+    <value>256</value>
+    <tag>OM, PERFORMANCE</tag>
+    <description>
+      The number of RPC handler threads for OM service endpoints.
+    </description>
+  </property>
+  <property>
+    <name>dfs.container.ratis.num.container.op.executors</name>
+    <value>128</value>
+    <tag>OZONE, RATIS, PERFORMANCE</tag>
+    <description>Number of executors that will be used by Ratis to execute
+      container ops.(10 by default).
+    </description>
+  </property>
+  <property>
+    <name>dfs.container.ratis.num.write.chunk.threads</name>
+    <value>512</value>
+    <tag>OZONE, RATIS, PERFORMANCE</tag>
+    <description>Maximum number of threads in the thread pool that Ratis
+      will use for writing chunks (60 by default).
+    </description>
+  </property>
+  <property>
+  <name>ozone.datanode.pipeline.limit</name>
+  <value>6</value>
+  <tag>OZONE, SCM, PIPELINE</tag>
+  <description>Max number of pipelines per datanode can be engaged in.
+  </description>
+  </property>
+  <property>
+    <name>ozone.scm.client.address</name>
+    <value>localhost</value>
+  </property>
+  <property>
+    <name>ozone.scm.pipeline.creation.auto.factor.one</name>
+    <value>false</value>
+    <tag>OZONE, SCM, PIPELINE</tag>
+    <description>
+      If enabled, SCM will auto create RATIS factor ONE pipeline.
+    </description>
+  </property>
+  <property>
+    <name>dfs.container.ratis.datanode.storage.dir</name>
+            <value>/data1/ozonedata,/data2/ozonedata,/data3/ozonedata,/data4/ozonedata,/data5/ozonedata</value>
+            <tag>OZONE, CONTAINER, STORAGE, MANAGEMENT, RATIS</tag>
+	    <description>This directory is used for storing Ratis metadata like logs. If
+      this is
+      not set then default metadata dirs is used. A warning will be logged if
+      this not set. Ideally, this should be mapped to a fast disk like an SSD.
+    </description>
+  </property>
+  <property>
+    <name>dfs.ratis.client.request.max.retries</name>
+    <value>60</value>
+    <tag>OZONE, RATIS, MANAGEMENT</tag>
+    <description>Number of retries for ratis client request.</description>
+  </property>
+    <property>
+    <name>ozone.http.basedir</name>
+    <value>/data/zmc/ozone/</value>
+    <tag>OZONE, OM, SCM, MANAGEMENT</tag>
+    <description>
+      The base dir for HTTP Jetty server to extract content.
+      The directory named by this attribute must exist and be writeable.
+    </description>
+  </property>
+  <property>
+    <name>ozone.scm.chunk.size</name>
+    <value>4MB</value>
+  </property>
+<!--
+  <property>
+      <name>ozone.scm.container.placement.impl</name>
+      <value>org.apache.hadoop.hdds.scm.container.placement.algorithms.SCMContainerPlacementRackAware</value>
+   </property>
+   <property>
+      <name>net.topology.node.switch.mapping.impl</name>
+      <value>org.apache.hadoop.net.TableMapping</value>
+   </property>
+   <property>
+      <name>net.topology.table.file.name</name>
+      <value>/data/home/timmycheng/network-config</value>
+   </property>-->
+</configuration>
