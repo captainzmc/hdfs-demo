@@ -20,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <hadoop.version>2.6.0-cdh5.7.0</hadoop.version>
+        <hadoop.version>3.2.1-tq-1.2.3</hadoop.version>
     </properties>
 
     <repositories>
@@ -31,109 +31,41 @@
     </repositories>
 
     <dependencies>
-        <!--
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>-->
-        <!-- hadoop依赖 -->
+        <!-- Hadoop Common -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>2.7.5</version>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
         </dependency>
 
+        <!-- Hadoop HDFS -->
         <dependency>
-            <groupId>net.minidev</groupId>
-            <artifactId>json-smart</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>1.4</version>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>${hadoop.version}</version>
         </dependency>
 
-        <!--
+        <!-- Hadoop HDFS Client -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>单元测试依赖 -->
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs-client</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+
+        <!-- Hadoop Auth -->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-auth</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+
+        <!-- JUnit (for testing purposes) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
+            <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>9.4.26.v20200117</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>9.4.26.v20200117</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <version>9.4.26.v20200117</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util-ajax</artifactId>
-            <version>9.4.26.v20200117</version>
-        </dependency>
-        <!--swagger依赖
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.13</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.0</version>
-        </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-ozone-filesystem-lib-legacy -->
-        <!--
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-ozone-filesystem-lib-legacy</artifactId>
-            <version>0.4.1-alpha</version>
-        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-ozone-datanode -->
-        <!--<dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-ozone-datanode</artifactId>
-            <version>0.4.1-alpha</version>
-        </dependency>-->
-
-
     </dependencies>
 
     <build>

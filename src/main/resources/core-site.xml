@@ -18,62 +18,109 @@
 
 <configuration>
     <property>
-        <name>fs.ofs.impl</name>
-        <value>org.apache.hadoop.fs.ozone.RootedOzoneFileSystem</value>
-    </property>
-    <property>
         <name>fs.defaultFS</name>
-        <value>ofs://localhost/</value>
-        <!--<value>o3fs://bucket.hadoop</value>
-         -->
+        <value>hdfs://th-tdw-test-2-v3</value>
     </property>
 
-    <!--
-           <property>
-             <name>fs.o3fs.impl</name>
-             <value>org.apache.hadoop.fs.ozone.BasicOzoneFileSystem</value>
-           </property>
-           <property>
-             <name>fs.AbstractFileSystem.o3fs.impl</name>
-             <value>org.apache.hadoop.fs.ozone.BasicOzFs</value>
-           </property>
+    <property>
+        <name>dfs.access.time.precision</name>
+        <value>0</value>
+    </property>
 
-               <property>
-                 <name>fs.defaultFS</name>
-                 <value>o3fs://bucket.hadoop/</value>
-                </property>-->
+    <property>
+        <name>hadoop.security.authentication</name>
+        <value>TAUTH</value>
+    </property>
+
+    <property>
+        <name>tq.auth.compatible</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>ipc.client.fallback-to-simple-auth-allowed</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.image.transfer.retry</name>
+        <value>3</value>
+        <description>max retry num for image transfer</description>
+    </property>
+
+    <property>
+        <name>ipc.9000.callqueue.impl</name>
+        <value>org.apache.hadoop.ipc.FairCallQueue</value>
+    </property> 
+
+
+    <property>
+        <name>hadoop.security.group.mapping</name>
+        <value>org.apache.hadoop.security.TqRestGroupMappingServiceProviderV2</value>
+    </property>
+
+
+    <property>
+        <name>hadoop.security.impersonation.provider.class</name>
+        <value>org.apache.hadoop.security.authorize.TqConfigureImpersonationProvider</value>
+    </property>
+
+    <property>
+        <name>tq.delegation.token.op.unlimited</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>tq.impersonation.enable</name>
+        <value>true</value>
+    </property>
+
+
+    <property>
+        <name>hadoop.user.group.static.mapping.overrides</name>
+        <value>dr.who=;</value>
+    </property>
+
+
+    <property>
+        <name>tq.auth.whitelist.enabled</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>tq.auth.whitelist.port</name>
+        <value>9000</value>
+    </property>
+
+    <property>
+        <name>tq.auth.whitelist.request.interval</name>
+        <value>120000</value>
+    </property>
+
+    <property>
+        <name>tq.auth.whitelist.request.user</name>
+        <value>namenode</value>
+    </property>
+
+    <property>
+        <name>tq.auth.whitelist.request.password</name>
+        <value>59c6766fc79d</value>
+    </property>
+
+    <property>
+        <name>tq.auth.whitelist.request.url</name>
+        <value>http://openapi.sc.woa.com/openapi/sc/authz/api/authz/iptables/list/</value>
+    </property>
+
+    
+        <property>
+        <name>hadoop.user.group.static.mapping.overrides</name>
+        <value>oceanus=supergroup</value>
+    </property>
     <!--
-                <property>
-                  <name>fs.defaultFS</name>
-                  <value>hdfs://localhost:9000</value>
-                 </property>-->
-    <!--
-             <property>
-                 <name>hadoop.proxyuser.root.groups</name>
-                 <value>*</value>
-             </property>
-             <property>
-                 <name>hadoop.proxyuser.root.hosts</name>
-                 <value>*</value>
-             </property>
-             <property>
-                 <name>hadoop.logfile.size</name>
-                 <value>1000000000</value>
-             </property>
-             <property>
-                 <name>hadoop.logfile.count</name>
-                 <value>20</value>
-             </property>
-             <property>
-                 <name>hadoop.tmp.dir</name>
-                 <value>/data6</value>
-             </property>
-             <property>
-                 <name>ipc.client.connect.timeout</name>
-                 <value>3000</value>
-             </property>
-             <property>
-                 <name>ipc.client.connect.max.retries.on.timeouts</name>
-                 <value>5</value>
-             </property>-->
-         </configuration>
+    <property>
+        <name>dfs.client.read.striped.bufferpool.weak.references.enabled</name>
+        <value>true</value>
+    </property>-->
+
+</configuration>

@@ -1,118 +1,691 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-<!--
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License. See accompanying LICENSE file.
--->
-
-<!-- Put site-specific property overrides in this file. -->
-
-<configuration>
-    <!--
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?><!-- Put site-specific property overrides in this file. --><configuration>
     <property>
-        <name>dfs.namenode.acls.enabled</name>
-        <value>true</value>
-    </property>-->
-    <property>
-        <name>dfs.secondary.http.address</name>
-        <value>127.0.0.1:9862</value>
-    </property>
-   <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>/data7/hadoop</value>
+        <name>hadoop.tmp.dir</name>
+        <value>/data/hdfsadmin/hdfsenv/runtime</value>
+        <description>A base for other temporary directories.</description>
     </property>
     <property>
         <name>dfs.datanode.data.dir</name>
-        <value>/data8,/data9,/data10,/data11</value>
+        <value>/data1/hdfs/local,/data2/hdfs/local,/data3/hdfs/local,/data4/hdfs/local,/data5/hdfs/local,/data6/hdfs/local,/data7/hdfs/local,/data8/hdfs/local,/data9/hdfs/local,/data10/hdfs/local,/data11/hdfs/local,/data12/hdfs/local</value>
+        <description>Determines where on the local filesystem an DFS data node should store its blocks.  If this is a comma-delimited list of directories, then data will be stored in all named directories, typically on different devices. Directories that do not exist are ignored.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>${hadoop.tmp.dir}/dfsnamespace</value>
+        <description> Hadoop filesystem dir</description>
+    </property>
+    <property>
+        <name>dfs.name.edits.dir</name>
+        <value>/data1/editlog</value>
+        <description> Hadoop editlog dir</description>
+    </property>
+    <property>
+        <name>dfs.datanode.http.address</name>
+        <value>0.0.0.0:8081</value>
+        <description>
+        The datanode http server address and port.
+        If the port is 0 then the server will start on a free port.
+        </description>
+    </property>
+    <property>
+        <name>dfs.datanode.address</name>
+        <value>0.0.0.0:9003</value>
+        <description>The datanode server address and port for data transfer.</description>
+    </property>
+    <property>
+        <name>dfs.datanode.ipc.address</name>
+        <value>0.0.0.0:9010</value>
+    </property>
+    <property>
+        <name>dfs.datanode.handler.count</name>
+        <value>32</value>
+        <description>The number of server threads for the datanode.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.handler.count</name>
+        <value>256</value>
+        <description>The number of server threads for the namenode.</description>
+    </property>
+    <property>
+        <name>dfs.blocksize</name>
+        <value>536870912</value>
+        <description>HDFS blocksize of 512MB for large file-systems.</description>
+    </property>
+    
+    
+    <property>
+        <name>io.file.buffer.size</name>
+        <value>1048576</value>
+        <description>
+        Size of read/write buffer used in SequenceFiles
+        </description>
+    </property>
+    
+
+    <property>
+        <name>hadoop.home</name>
+        <value>/data/hdfsadmin/hdfsenv/hadoop</value>
+    </property>
+    <property>
+        <name>fs.trash.interval</name>
+        <value>1440</value>
+        <description>Number of minutes between trash checkpoints.If zero, the trash feature is disabled.</description>
+    </property>
+    <property>
+        <name>fs.trash.checkpoint.interval</name>
+        <value>180</value>
+        <description>trash checkpoint 3 hour,default 0</description>
+    </property>
+    <property>
+        <name>ipc.server.listen.queue.size</name>
+        <value>512</value>
+        <description>Indicates the length of the listen queue for servers accepting client connections.</description>
+    </property>
+    <property>
+        <name>dfs.datanode.max.transfer.threads</name>
+        <value>40960</value>
+        <description> Specifies the maximum number of threads to use for transferring data in and out of the DN.</description>
+    </property>
+    <property>
+        <name>dfs.blockreport.intervalMsec</name>
+        <value>3600000</value>
+        <description>Determines block reporting interval in milliseconds.</description>
+    </property>
+    <property>
+        <name>dfs.datanode.du.reserved</name>
+        <value>161061273600</value>
     </property>
     <property>
         <name>dfs.replication</name>
         <value>3</value>
+        <description>Default block replication.
+        The actual number of replications can be specified when the file is created.
+        The default is used if replication is not specified in create time.
+        </description>
+    </property>
+    <property>
+        <name>dfs.https.enable</name>
+        <value>false</value>
+        <description>Decide if HTTPS(SSL) is supported on HDFS</description>
+    </property>
+    <property>
+        <name>dfs.namenode.replication.considerLoad</name>
+        <value>true</value>
+        <description>Decide if chooseTarget considers the target's load or not</description>
+    </property>
+    <property>
+        <name>dfs.permissions.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.heartbeat.interval</name>
+        <value>10</value>
+        <description>Determines datanode heartbeat intereval in seconds.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.safemode.threshold-pct</name>
+        <value>0.9999f</value>
+        <description>"0.99999f" is the default value.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.safemode.extension</name>
+        <value>0</value>
+        <description>Determines extension of safe mode in milliseconds after the threshold level is reached.</description>
+    </property>
+    <property>
+        <name>dfs.datanode.balance.bandwidthPerSec</name>
+        <value>1073741824</value>
+        <description>Determines the maximum amout of bandwidth that each datanode can utilize for the balancing purpose in term of the number of bytes
+ per second. default value is "16MB"</description>
+    </property>
+    <property>
+        <name>dfs.hosts.exclude</name>
+        <value>/data/hdfsadmin/hdfsenv/hadoop/etc/hadoop/node_to_decommission</value>
+    </property>
+    <property>
+        <name>dfs.namenode.decommission.interval</name>
+        <value>300</value>
+        <description>Namenode periodicity in seconds to check if decommission is complete.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.checkpoint.period</name>
+        <value>5400</value>
+        <description>3 hours, The number of seconds between two periodic checkpoints.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.checkpoint.txns</name>
+        <value>20000000</value>
+        <description>"1000000" is the default value. The secondary NameNode or CheckpointNode will create a checkpoint of the namespace every'dfs.naemnode.checkpoint.txns' transactions, regardless of whether 'dfs.namenode.checkpoint.perod' has expired.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.checkpoint.check.period</name>
+        <value>300</value>
+        <description> The SecondaryNameNode and CheckpointNode will poll the NameNode every 'dfs.namenode.checkpoint.check.period' seconds to query the number of uncheckpointed transactions</description>
+    </property>
+    <property>
+        <name>dfs.namenode.checkpoint.max-retries</name>
+        <value>3</value>
+        <description>The SecondaryNameNode retries failed checkpointing. If the failure occurs while loading fsimage or replaying edits, the number of retries is limited by this variable. </description>
+    </property>
+    <property>
+        <name>dfs.namenode.support.allow.format</name>
+        <value>false</value>
+        <description> Does HDFS namenode allow itself to be formatted ? You may consider setting this to false for any production cluster, to avoid any possibility of formatting a running DFS.</description>
+    </property>
+    <property>
+        <name>dfs.support.append</name>
+        <value>true</value>
+        <description> Does HDFS allow appends to files?</description>
+    </property>
+    <!-- config for namenode ha -->
+    <property>
+        <name>dfs.nameservices</name>
+        <value>th-tdw-test-2-v3</value>
+    </property>
+    <property>
+        <name>dfs.ha.namenodes.th-tdw-test-2-v3</name>
+        <value>nn1,nn2,nn3</value>
+        <description>enable HA mode, one nn is active while another is hot backup.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.th-tdw-test-2-v3.nn1</name>
+        <value>th-tdw-test-2-v3-nn-1.tianqiong.woa.com:9000</value>
+        <description>RPC address that handles all clients requests.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.th-tdw-test-2-v3.nn1</name>
+        <value>th-tdw-test-2-v3-nn-1.tianqiong.woa.com:8080</value>
+        <description>
+        The address and the base port where the dfs namenode web ui will listen on.
+        If the port is 0 then the server will start on a free port.
+        </description>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.th-tdw-test-2-v3.nn2</name>
+        <value>th-tdw-test-2-v3-nn-2.tianqiong.woa.com:9000</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.th-tdw-test-2-v3.nn2</name>
+        <value>th-tdw-test-2-v3-nn-2.tianqiong.woa.com:8080</value>
+        <description>
+        The address and the base port where the dfs namenode web ui will listen on.
+        If the port is 0 then the server will start on a free port.
+        </description>
+    </property>
+    <property>
+        <name>dfs.namenode.rpc-address.th-tdw-test-2-v3.nn3</name>
+        <value>th-tdw-test-2-v3-nn-3.tianqiong.woa.com:9000</value>
+    </property>
+    <property>
+        <name>dfs.namenode.http-address.th-tdw-test-2-v3.nn3</name>
+        <value>th-tdw-test-2-v3-nn-3.tianqiong.woa.com:8080</value>
+        <description>
+        The address and the base port where the dfs namenode web ui will listen on.
+        If the port is 0 then the server will start on a free port.
+        </description>
+    </property>
+    <property>
+        <name>dfs.journalnode.edits.dir</name>
+        <value>/data1/hdfsadmin/hdfsenv/runtime/journal</value>
+        <description>A directory on shared storage between the multiple namenodes in an HA cluster.
+                It should be left empty in a non-HA cluster.
+        </description>
+    </property>
+    <property>
+        <name>dfs.journalnode.rpc-address</name>
+        <value>0.0.0.0:8485</value>
+        <description> The JournalNode RPC server address and port </description>
+    </property>
+    <property>
+        <name>dfs.journalnode.http-address</name>
+        <value>0.0.0.0:8081</value>
+        <description> The address and port the JournalNode web UI listens on. </description>
+    </property>
+    <property>
+        <name>dfs.namenode.shared.edits.dir.th-tdw-test-2-v3</name>
+        <value>qjournal://th-tdw-test-jn-1.tianqiong.woa.com:8485;th-tdw-test-jn-2.tianqiong.woa.com:8485;th-tdw-test-jn-3.tianqiong.woa.com:8485;th-tdw-test-jn-4.tianqiong.woa.com:8485;th-tdw-test-jn-5.tianqiong.woa.com:8485/th-tdw-test-2-v3</value>
+    </property>
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>shell(/bin/true)</value>
+    </property>
+    <property>
+        <name>dfs.ha.fencing.ssh.connect-timeout</name>
+        <value>10000</value>
+        <description>SSH connection timeout, in milliseconds, to use with the builtin sshfence fencer.</description>
+    </property>
+    <property>
+        <name>dfs.client.failover.proxy.provider.th-tdw-test-2-v3</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>th-tdw-test-nd1.tianqiong.woa.com:2181,th-tdw-test-nd2.tianqiong.woa.com:2181,th-tdw-test-nd3.tianqiong.woa.com:2181,th-tdw-test-nd4.tianqiong.woa.com:2181,th-tdw-test-nd5.tianqiong.woa.com:2181</value>
+        <description>zookeeper</description>
+    </property>
+    <property>
+        <name>ha.zookeeper.session-timeout.ms</name>
+        <value>6000</value>
+        <description>The session timeout to use when the ZKFC connects to ZooKeeper</description>
+    </property>
+    <property>
+        <name>ha.zookeeper.parent-znode</name>
+        <value>/th-tdw-test-2-v3-ha</value>
+    </property>
+    <property>
+        <name>dfs.namenode.num.checkpoints.retained</name>
+        <value>2</value>
+        <description>The number of image checkpoint files that will be retained by the NameNode and Secondary NameNode in their storage directories. All edit logs necessary to recover an up-to-date namespace from the oldest retained checkpoint will also be retained.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.num.extra.edits.retained</name>
+        <value>50000000</value>
+        <description>The number of extra transactions which should be retained beyond what is minimally necessary for a NN restart. This can be useful for audit purposes or for an HA setup where a remote Standby Node may have been offline for some time and need to have a longer backlog of retained edits in order to start again. Typically each edit is on the order of a few hundreds of MBs or low GBs. NOTE: Fewer extra edits may be retained than value specified for this setting if doing so would mean that more segments would be retained than the number configured by dfs.namenode.max.extra.edits.segments.retained.</description>
+    </property>
+    <property>
+        <name>dfs.namenode.max.extra.edits.segments.retained</name>
+        <value>10000</value>
+        <description>The maximum number of extra edit log segments which should be retained beyond what is minimally mecessary for a NN restart. When used in conjunction with dfs.namenode.num.extra.edits.retained, this configuration property serves to cap the number of extra edits files to a reasonable value.</description>
+    </property>
+    <property>
+        <name>dfs.ha.log-roll.period</name>
+        <value>120</value>
+        <description>How often, in seconds, the StandbyNode should ask the active to roll edit logs. Since the StandbyNode only reads from finalized log segments, the StandbyNode will only be as up-to-date as how often the logs are rolled. Note that failover triggers a log roll so the SandbyNode will be up to date before it becomes active.</description>
+    </property>
+    <property>
+        <name>dfs.ha.tail-edits.period</name>
+        <value>60</value>
+        <description>How often, in seconds, the StandbyNode should check for new finalized log segments in the shared edits log.</description>
+    </property>
+    <property>
+        <name>dfs.ha.tail-edits.number</name>
+        <value>100000</value>
+        <description>How often, in seconds, the StandbyNode should check for new finalized log segments in the shared edits log.</description>
+    </property>
+    <property>
+        <name>hadoop.tq.protect.data.enable</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hadoop.tq.white.ipaddr</name>
+        <value>9.23.26.217;9.23.26.236;9.23.26.253</value>
+    </property>
+    <property>
+        <name>hadoop.tq.final.path</name>
+        <value>/user/tdw/warehouse;/user/nodedir</value>
+    </property>
+    <property>
+        <name>hadoop.tq.white.path</name>
+        <value>/user/ddc/tmp_path;/tmp</value>
+    </property>
+    <property>
+        <name>dfs.invalid.block.delayed.time</name>
+        <value>0</value>
+    </property>
+    <property>
+        <name>dfs.datanode.dir.mount.disk</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.datanode.failed.volumes.tolerated</name>
+        <value>2</value>
+    </property>
+    <property>
+        <name>hadoop.lease.check.limited</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hadoop.lease.release.max.quantity</name>
+        <value>1000</value>
+    </property>
+    <property>
+        <name>hadoop.lease.check.max.time</name>
+        <value>60000</value>
+    </property>
+    <property>
+        <name>dfs.max.num.concurrent_moves</name>
+        <value>150</value>
+    </property>
+    <property>
+        <name>ipc.server.read.threadpool.size</name>
+        <value>4</value>
+    </property>
+    <property>
+        <name>dfs.namenode.servicerpc-address.th-tdw-test-2-v3.nn1</name>
+        <value>th-tdw-test-2-v3-nn-1.tianqiong.woa.com:9030</value>
+    </property>
+    <property>
+        <name>dfs.namenode.servicerpc-address.th-tdw-test-2-v3.nn2</name>
+        <value>th-tdw-test-2-v3-nn-2.tianqiong.woa.com:9030</value>
+    </property>
+    <property>
+        <name>dfs.namenode.servicerpc-address.th-tdw-test-2-v3.nn3</name>
+        <value>th-tdw-test-2-v3-nn-3.tianqiong.woa.com:9030</value>
+    </property>
+    <property>
+        <name>dfs.namenode.quota.init-threads</name>
+        <value>18</value>
+    </property>
+    <property>
+        <name>dfs.datanode.balance.max.concurrent.moves</name>
+        <value>150</value>
+    </property>
+    <property>
+        <name>dfs.namenode.fs-limits.max-directory-items</name>
+        <value>6400000</value>
+    </property>
+    <property>
+        <name>dfs.max.size.to.move</name>
+        <value>10737418240</value>
+    </property>
+    <property>
+        <name>dfs.max.no.pending_block_iteration</name>
+        <value>20</value>
+    </property>
+    <property>
+        <name>dfs.max.blocks.size.to.fetch</name>
+        <value>2147483648</value>
+    </property>
+
+    <!-- 
+    <property>
+        <name>topology.script.file.name</name>
+        <value>/data/hdfsadmin/hdfsenv/hadoop/etc/hadoop/rack.sh</value>
+    </property>
+     <property>
+        <name>net.topology.get-all-items.script.file.name</name>
+        <value>/data/hdfsadmin/hdfsenv/hadoop/etc/hadoop/rackinfo.sh</value>
+    </property>
+    -->
+
+    <property>
+        <name>dfs.namenode.lease-recheck-interval-ms</name>
+        <value>600000</value>
+    </property>
+    <property>
+        <name>net.topology.refresh.interval.seconds</name>
+        <value>3600</value>
+    </property>
+    <property>
+        <name>ha.health-monitor.rpc-timeout.ms</name>
+        <value>90000</value>
     </property>
     <property>
         <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
         <value>false</value>
     </property>
     <property>
-        <name>dfs.datanode.handler.count</name>
-        <value>128</value>
-    </property>
-    <property>
-        <name>dfs.namnode.handler.count</name>
-        <value>128</value>
-    </property>
-    <property>
-        <name>dfs.namnode.service.handler.count</name>
-        <value>128</value>
-    </property>
-    <property>
-        <name>dfs.datanode.max.transfer.threads</name>
-        <value>8096</value>
-    </property>
-    <property>
-        <name>dfs.socket.timeout</name>
-        <value>300000</value>
-    </property>
-    <property>
-        <name>dfs.datanode.socket.write.timeout</name>
-        <value>300000</value>
-    </property>
-    <property>
-        <name>dfs.client.slow.io.warning.threshold.ms</name>
-        <value>100000</value>
-    </property>
-    <property>
-        <name>dfs.client.read.shortcircuit</name>
+        <name>dfs.webhdfs.enabled</name>
         <value>false</value>
     </property>
     <property>
-        <name>dfs.domain.socket.path</name>
-        <value>/var/lib/hadoop-hdfs/dn_socket</value>
+        <name>dfs.namenode.lifeline.rpc-address.th-tdw-test-2-v3.nn1</name>
+        <value>th-tdw-test-2-v3-nn-1.tianqiong.woa.com:9040</value>
     </property>
     <property>
-        <name>dfs.client.read.shortcircuit.streams.cache.size</name>
-        <value>4096</value>
+        <name>dfs.namenode.lifeline.rpc-address.th-tdw-test-2-v3.nn2</name>
+        <value>th-tdw-test-2-v3-nn-2.tianqiong.woa.com:9040</value>
     </property>
     <property>
-        <name>dfs.namenode.checkpoint.period</name>
-        <value>20480</value>
+        <name>dfs.namenode.lifeline.rpc-address.th-tdw-test-2-v3.nn3</name>
+        <value>th-tdw-test-2-v3-nn-3.tianqiong.woa.com:9040</value>
     </property>
     <property>
-        <name>dfs.datanode.balance.max.concurrent.moves</name>
-        <value>64</value>
+        <name>dfs.namenode.block.invalidation.independent</name>
+        <value>true</value>
     </property>
     <property>
-        <name>dfs.datanode.balance.bandwidthPerSec</name>
-        <value>52428800</value>
+        <name>dfs.namenode.avoid.write.stale.datanode</name>
+        <value>true</value>
     </property>
     <property>
-        <name>dfs.blocksize</name>
-        <value>134217728</value>
+        <name>dfs.namenode.avoid.read.stale.datanode</name>
+        <value>true</value>
+    </property>
+    <!--Add property -->
+    <property>
+        <name>dfs.datanode.fileio.profiling.sampling.percentage</name>
+        <value>50</value>
     </property>
     <property>
-        <name>dfs.balance.bandwidthPerSec</name>
-        <value>10485760</value>
+        <name>dfs.client.socket-timeout</name>
+        <value>60000</value>
     </property>
     <property>
-        <name>dfs.heartbeat.interval</name>
-        <value>3</value>
+        <name>dfs.client.retry.policy.enabled</name>
+        <value>true</value>
     </property>
     <property>
-        <name>dfs.datanode.failed.volumes.tolerated</name>
+        <name>dfs.client.retry.policy.spec</name>
+        <value>1000,1</value>
+    </property>
+    <property>
+        <name>dfs.client.failover.connection.retries.on.timeouts</name>
         <value>1</value>
     </property>
     <property>
-        <name>dfs.client-write-packet-size</name>
-        <value>1024</value>
+        <name>dfs.datanode.fsdatasetcache.max.threads.per.volume</name>
+        <value>4</value>
+    </property>
+    <property>
+        <name>tq.data1.hdfs.local</name>
+        <value>536870912000</value>
+    </property>
+    <!--Add property -->
+    <property>
+        <name>dfs.datanode.socket.write.timeout</name>
+        <value>180000</value>
+    </property>
+    <property>
+        <name>dfs.client.max.block.acquire.failures</name>
+        <value>3</value>
+    </property>
+    <property>
+        <name>dfs.datanode.readahead.bytes</name>
+        <value>4194304</value>
+    </property>
+    <property>
+        <name>dfs.namenode.replication.max-streams</name> 
+        <value>500</value>
+    </property>
+    <property>
+        <name>dfs.namenode.replication.work.multiplier.per.iteration</name>
+        <value>5</value>
+    </property>
+    <property>
+        <name>dfs.namenode.replication.max-streams-hard-limit</name>
+        <value>1000</value>
+    </property>
+    <property>
+        <name>dfs.namenode.replication.interval</name>
+        <value>3</value>
+    </property>
+    <property>
+        <name>dfs.namenode.path.based.cache.block.map.allocation.percent</name>
+        <value>0.25</value>
+    </property>
+    <property>
+        <name>heartbeat.recheck.interval</name>
+        <value>60000</value>
+    </property>
+    <!-- config for datanode balance-->
+    <property>
+        <name>dfs.disk.balancer.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.disk.balancer.max.disk.throughputInMBperSec</name>
+        <value>200</value>
+    </property>
+    <property>
+        <name>dfs.disk.balancer.max.disk.errors</name>
+        <value>5</value>
+    </property>
+    <property>
+        <name>dfs.disk.balancer.block.tolerance.percent</name>
+        <value>10</value>
+    </property>
+    <property>
+        <name>dfs.disk.balancer.plan.threshold.percent</name>
+        <value>10</value>
+    </property>
+    <property>
+        <name>dfs.hosts.readonly</name>
+        <value>/data/hdfsadmin/hdfsenv/hadoop/etc/hadoop/node_to_readonly</value>
+    </property>
+    <!-- config for EC -->
+    <property>
+        <name>dfs.datanode.ec.reconstruction.stripedread.timeout.millis</name>
+        <value>5000</value>
+    </property>
+    <property>
+        <name>dfs.datanode.ec.reconstruction.stripedread.buffer.size</name>
+        <value>1048576</value>
+    </property>
+    <property>
+        <name>dfs.datanode.ec.reconstruction.threads</name>
+        <value>12</value>
+    </property>
+    <property>
+        <name>dfs.datanode.ec.reconstruction.xmits.weight</name>
+        <value>0.5</value>
+    </property>
+    <property>
+        <name>dfs.block.placement.ec.choose.random.among.racks</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>fs.getspaceused.classname</name>
+        <value>org.apache.hadoop.fs.DFCachingGetSpaceUsed</value>
+    </property>
+    <property>
+        <name>dfs.ha.balancer.request.standby</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.datanode.scan.period.hours</name>
+        <value>168</value>
+    </property>
+    <property>
+        <name>dfs.block.scanner.volume.bytes.per.second</name>
+        <value>6544712</value>
+    </property>
+    <property>
+        <name>dfs.security.check.skip</name>
+        <value>true</value>
+    </property>
+    <!-- comment old union token 
+    <property>
+        <name>union.token.enable</name>
+        <value>true</value>
+    </property>
+    -->
+    <property>
+        <name>tq.hdfs.union.token.enable</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.namenode.full.block.report.lease.length.ms</name>
+        <value>1800000</value>
+    </property>
+    <property>
+        <name>dfs.namenode.max.full.block.report.leases</name>
+        <value>60</value>
+    </property>
+    <property>
+        <name>dfs.namenode.delegation.token.max-lifetime</name>
+        <value>63072000000</value>
+    </property>
+    <property>
+        <name>dfs.blockreport.incremental.intervalMsec</name>
+        <value>300</value>
+        <description>block incremental report batch</description>
+    </property>
+    <!-- dfs deletion -->
+    <property>
+        <name>dfs.namenode.block.deletion.sleep.enabled</name>
+        <value>false</value>
+        <description>block sleep enable</description>
+    </property>
+    <property>
+        <name>dfs.namenode.block.deletion.sleep.time</name>
+        <value>100</value>
+        <description>block sleep enable</description>
+    </property>
+    <property>
+        <name>dfs.namenode.block.deletion.pending.threshold</name>
+        <value>1000000</value>
+        <description>block sleep enable</description>
+    </property>
+    <!-- dfs deletion -->
+    <!-- call response -->
+    <property>
+        <name>dfs.namenode.async.edit.response.pool.enable</name>
+        <value>true</value>
+        <description>call response</description>
+    </property>
+    <property>
+        <name>dfs.namenode.async.edit.response.pool.size</name>
+        <value>50</value>
+        <description>call response</description>
+    </property>
+    <property>
+        <name>dfs.namenode.async.edit.response.pending.size</name>
+        <value>4096</value>
+        <description>call response</description>
+    </property>
+    <!-- call response -->
+    <property>
+        <name>dfs.namenode.audit.log.async</name>
+        <value>true</value>
+        <description>audit log async print</description>
+    </property>
+    <!-- Config for OBNN -->
+    <property>
+        <name>dfs.namenode.state.context.enabled</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>dfs.ha.tail-edits.in-progress</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>dfs.ha.tail-edits.period.backoff-max</name>
+        <value>0</value>
+    </property>
+    <property>
+        <name>dfs.journalnode.edit-cache-size.bytes</name>
+        <value>1048576</value>
+    </property>
+    <property>
+        <name>dfs.namenode.accesstime.precision</name>
+        <value>3600000</value>
+    </property>
+    <!-- Config for OBNN -->
+    <property>
+        <name>fs.trash.white.list</name>
+        <value>/data/hdfsadmin/hdfsenv/hadoop/etc/hadoop/white_route_list</value>
+    </property>
+    <property>
+        <name>dfs.namenode.client.rack.aware.cache.only</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>tq.union.token.cache.max.num</name>
+        <value>204800</value>
     </property>
 
+<property>
+        <name>dfs.permissions</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>dfs.namenode.inode.attributes.provider.class</name>
+        <value>org.apache.ranger.authorization.hadoop.RangerHdfsAuthorizer</value>
+    </property>
 </configuration>
