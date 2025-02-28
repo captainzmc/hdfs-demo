@@ -18,14 +18,13 @@ public class HdfsEcReadTest2 {
     public static void main(String[] args) throws IOException, InterruptedException {
         Configuration conf = new HdfsConfiguration();
         conf.set("fs.defaultFS", HDFS_URI);
-        int index = Integer.parseInt(args[0]);
-        int start = Integer.parseInt(args[2]);
+        int start = Integer.parseInt(args[0]);
         FileSystem fs = FileSystem.get(conf);
 
         try {
             for (int i = 0; i < 5; i++) {
                 for(int j = start; j < start + 5; j++) {
-                    if (j==index) {
+                    if (j== start) {
                         System.out.println("=====start read=====" + FILE_PATH+ j);
                     }
                     long startTime = System.currentTimeMillis();
@@ -39,7 +38,7 @@ public class HdfsEcReadTest2 {
                         totalReadLen += readLen;
                     } while (readLen >= 0);
                     long totalreadtime =System.currentTimeMillis()-startTime;
-                    if (j==index) {
+                    if (j==start) {
                         System.out.println(FILE_PATH+ j+"=====total read=====" + totalReadLen +"====total time:"+totalreadtime);
                     }
                     inputStream.close();
