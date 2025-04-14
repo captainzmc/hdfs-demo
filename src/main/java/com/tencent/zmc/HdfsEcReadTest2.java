@@ -4,6 +4,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.hdfs.DFSClient;
+import org.apache.hadoop.hdfs.DistributedFileSystem;
 import org.apache.hadoop.hdfs.HdfsConfiguration;
 
 import java.io.IOException;
@@ -20,6 +22,12 @@ public class HdfsEcReadTest2 {
         conf.set("fs.defaultFS", HDFS_URI);
         int start = Integer.parseInt(args[0]);
         FileSystem fs = FileSystem.get(conf);
+
+        if (fs instanceof DistributedFileSystem) {
+            DistributedFileSystem dfs = (DistributedFileSystem) fs;
+            DFSClient dfsClient = dfs.getClient();
+            dfsClient.getClientName();
+        }
 
         try {
             for (int i = 0; i < 5; i++) {

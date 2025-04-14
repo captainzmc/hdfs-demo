@@ -24,7 +24,6 @@ public class DopClientMetricsUtils {
 
         DopMountTableFileSystem fs = new DopMountTableFileSystem();
         FSDataInputStream inputStream = fs.open(new Path("/Users/micahzhao/zmc/IdeaProject/hdfs-demo/pom.xml"));
-
         // 通过反射获取监控指标
         String metrics = DopClientMetricsUtils.getMetrics(inputStream);
         System.out.println("Metrics: " + metrics); // 输出: Metrics: mockMetrics
